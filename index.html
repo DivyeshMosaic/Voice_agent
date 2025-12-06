@@ -5,27 +5,39 @@
   <title>Bilingual Voice Assistant</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body{font-family:system-ui,Arial;padding:24px;max-width:900px;margin:auto}
-    #widget{border-radius:12px;height:70vh;border:1px solid #ddd;padding:8px}
+    body {
+      font-family: system-ui, Arial;
+      padding: 24px;
+      max-width: 900px;
+      margin: auto;
+    }
+    #widget {
+      border-radius: 12px;
+      height: 70vh;
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
 
 <h1>My Voice Assistant (English + Hindi)</h1>
-<p>Click the microphone icon and speak freely in English or Hindi.</p>
+<p>Click the microphone icon below and speak freely in English or Hindi.</p>
 
 <div id="widget">Loading assistant…</div>
 
-<!-- Correct Vapi Web SDK script -->
+<!-- CORRECT Vapi Web SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web"></script>
 
 <script>
+  // Vapi Public Key
   const client = new Vapi.Client({
-    publicKey: "YOUR_PUBLIC_KEY_HERE"   // <= replace
+    publicKey: "d8d2d5cf-de5c-47e4-a6fa-a80da79d5191"
   });
 
+  // Assistant ID
   client.mount({
-    assistantId: "YOUR_ASSISTANT_ID_HERE",  // <= replace
+    assistantId: "95d4bcc8-1b27-425b-a41b-afcf586b5327",
     container: "#widget",
     theme: "dark",
     microphone: true,
