@@ -16,7 +16,6 @@
       height: 100vh;
     }
 
-    /* Header */
     .header {
       background: #1a1a1a;
       padding: 16px 20px;
@@ -26,7 +25,6 @@
       border-bottom: 1px solid #333;
     }
 
-    /* Chat container */
     .chat-container {
       flex: 1;
       overflow-y: auto;
@@ -36,7 +34,6 @@
       gap: 14px;
     }
 
-    /* Chat bubbles */
     .bubble {
       max-width: 80%;
       padding: 12px 16px;
@@ -58,7 +55,6 @@
       color: white;
     }
 
-    /* Floating mic button */
     .mic-btn {
       position: fixed;
       bottom: 20px;
@@ -85,7 +81,6 @@
       filter: invert(1);
     }
 
-    /* Fade animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -97,33 +92,28 @@
 
   <div class="header">AI Voice Assistant (English + Hindi)</div>
 
-  <!-- Chat messages -->
   <div class="chat-container" id="chat"></div>
 
-  <!-- Mic floating action button -->
   <div class="mic-btn" id="micButton">
     <img src="https://cdn-icons-png.flaticon.com/512/709/709496.png" />
   </div>
 
-  <!-- VAPI Web SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@latest/dist/browser/vapi.js"></script>
+  <!-- CORRECT VAPI WEB SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@latest/dist/browser/vapi.js"></script>
 
   <script>
     const chat = document.getElementById("chat");
     const micButton = document.getElementById("micButton");
 
-    // Create Vapi client
     const client = new Vapi.Client({
       publicKey: "d8d2d5cf-de5c-47e4-a6fa-a80da79d5191"
     });
 
-    // Mount assistant
     const session = client.mount({
       assistantId: "95d4bcc8-1b27-425b-a41b-afcf586b5327",
       microphone: true
     });
 
-    // Add message to chat UI
     function addMessage(text, sender = "assistant") {
       const bubble = document.createElement("div");
       bubble.className = `bubble ${sender}`;
@@ -132,21 +122,14 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
-    // Capture assistant output
     session.on("conversation-update", (msg) => {
-      if (msg?.delta?.text) {
-        addMessage(msg.delta.text, "assistant");
-      }
+      if (msg?.delta?.text) addMessage(msg.delta.text, "assistant");
     });
 
-    // Capture user speech transcript
     session.on("transcript", (msg) => {
-      if (msg?.transcript) {
-        addMessage(msg.transcript, "user");
-      }
+      if (msg?.transcript) addMessage(msg.transcript, "user");
     });
 
-    // MIC BUTTON BEHAVIOR
     let listening = false;
 
     micButton.addEventListener("click", () => {
@@ -154,10 +137,10 @@
       
       if (listening) {
         session.startConversation();
-        micButton.style.background = "#4cd964"; // green = active
+        micButton.style.background = "#4cd964";
       } else {
         session.stopConversation();
-        micButton.style.background = "#ff3b30"; // red = idle
+        micButton.style.background = "#ff3b30";
       }
     });
   </script>
